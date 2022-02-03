@@ -5,3 +5,5 @@ colorama
 httpx
 requests
 pydantic
+jinja2
+aiofiles
