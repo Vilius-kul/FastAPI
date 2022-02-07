@@ -1,4 +1,5 @@
 import fastapi
+from services import report_service
 from starlette.requests import Request
 from starlette.templating import Jinja2Templates
 
@@ -7,8 +8,10 @@ router = fastapi.APIRouter()
 
 
 @router.get("/")
-def index(request: Request):
-    return templates.TemplateResponse("home/index.html", {"request": request})
+async def index(request: Request):
+    events = await report_service.get_reports()
+    data = {"request": request, "events": events}
+    return templates.TemplateResponse("home/index.html", data)
 
 
 @router.get("/favicon.ico")
